@@ -1,0 +1,9 @@
+sources:
+  - name: sf
+    database: e2e_db
+    schema: public
+    tables:
+      - name: b_fact
+      - name: b_stores
+      - name: b_department
+      
