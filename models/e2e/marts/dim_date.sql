@@ -1,5 +1,5 @@
 select distinct 
-    md5("Date" || "IsHoliday") as date_id,
+    md5("Date") as date_id,
     "Date" as store_date,
     "IsHoliday" as is_holiday,
     current_timestamp() as insert_date,

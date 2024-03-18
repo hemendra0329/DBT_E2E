@@ -1,0 +1,72 @@
+version: 2
+
+models:
+  - name: dim_date
+    description: It is the dimension table that holds date information 
+    columns: 
+      - name: date_id
+        description: It is the primary key for the table
+        tests:
+          - not_null
+          - unique
+      - name: store_date
+        description: It represents the date.
+        tests:
+          - not_null
+      - name: is_holiday
+        description: Checks whether the date is on a holiday
+        tests:
+          - not_null
+              
+  
+  - name: dim_store
+    description: It is the dimension table that holds the store information 
+    columns:
+      - name: store_id
+        description: It is the Store ID 
+        tests:
+          - not_null
+              
+      - name: dept_id
+        description: It is the department ID 
+        tests:
+          - not_null
+              
+      - name: store_type
+        description: It defines the type of the store
+        tests:
+          - not_null
+              
+      - name: store_size
+        description: Size of the store 
+        tests:
+          - not_null
+              
+
+  - name: fct_walmart
+    description: Is is the main fact table that holds the transaction detials of walmart 
+    columns:
+      - name: date_id
+        tests:
+          - not_null
+          - relationships:
+              field: date_id
+              to: ref('dim_date')
+      - name: store_id
+        tests:
+          - not_null
+          - relationships:
+              field: store_id
+              to: ref('dim_store')
+      - name: dept_id 
+        tests: 
+          - relationships:
+              field: dept_id
+              to: ref('dim_store')
+      - name: store_weekly_sales
+        tests:
+          - not_null
+      - name: fuel_price
+        tests: 
+          - not_null
+        
