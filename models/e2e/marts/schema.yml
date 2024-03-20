@@ -21,16 +21,13 @@ models:
   
   - name: dim_store
     description: It is the dimension table that holds the store information 
+    
     columns:
       - name: store_id
         description: It is the Store ID 
         tests:
           - not_null
-              
-      - name: dept_id
-        description: It is the department ID 
-        tests:
-          - not_null
+          - unique
               
       - name: store_type
         description: It defines the type of the store
@@ -60,13 +57,32 @@ models:
               to: ref('dim_store')
       - name: dept_id 
         tests: 
+          - not_null
           - relationships:
               field: dept_id
-              to: ref('dim_store')
+              to: ref('dim_department')
       - name: store_weekly_sales
         tests:
           - not_null
       - name: fuel_price
         tests: 
           - not_null
+
+  - name: dim_department
+    description: This table holds list of all the stores and the departments that are there.
+    tests:
+      - unique:
+          column_name: "(store_id || '-' || dept_id)"
+
+    columns: 
+    - name: store_id
+      tests: 
+        - not_null
+        - relationships:
+            field: store_id
+            to: ref('dim_store')
+    - name: dept_id
+      tests:
+        - not_null
+            
         
